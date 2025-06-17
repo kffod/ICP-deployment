@@ -1,62 +1,203 @@
-# `FitnFrame`
+# FitnFrame - Decentralized Fitness Application
 
-Welcome to your new `FitnFrame` project and to the Internet Computer development community. By default, creating a new project adds this README and some template files to your project directory. You can edit these template files to customize your project and to include your own code to speed up the development cycle.
+A blockchain-powered fitness application built on the Internet Computer (ICP) that combines AI-powered pose detection with decentralized data ownership.
 
-To get started, you might want to explore the project directory structure and the default configuration file. Working with this project in your development environment will not affect any production deployment or identity tokens.
+## 🏋️ Overview
 
-To learn more before you start working with `FitnFrame`, see the following documentation available online:
+FitnFrame is a full-stack decentralized application (dApp) that allows users to track their fitness activities using real-time pose detection while maintaining complete control over their data through blockchain technology.
 
-- [Quick Start](https://internetcomputer.org/docs/current/developer-docs/setup/deploy-locally)
-- [SDK Developer Tools](https://internetcomputer.org/docs/current/developer-docs/setup/install)
-- [Motoko Programming Language Guide](https://internetcomputer.org/docs/current/motoko/main/motoko)
-- [Motoko Language Quick Reference](https://internetcomputer.org/docs/current/motoko/main/language-manual)
+## ✨ Features
 
-If you want to start working on your project right away, you might want to try the following commands:
+- **AI-Powered Pose Detection**: Real-time workout tracking using TensorFlow.js
+- **Blockchain Authentication**: Secure login with Internet Identity, NFID, and Plug
+- **Decentralized Data Storage**: User data stored on the Internet Computer blockchain
+- **Real-time Workout Tracking**: Monitor exercises, calories, and progress
+- **Achievement System**: Gamified fitness challenges and rewards
+- **Cross-platform**: Works on web browsers with camera access
 
-```bash
-cd FitnFrame/
-dfx help
-dfx canister --help
+## 🛠️ Tech Stack
+
+### Backend
+- **Motoko**: Smart contract language for Internet Computer
+- **Internet Computer**: Blockchain platform for decentralized applications
+- **Candid**: Interface definition language for canister interactions
+
+### Frontend
+- **React 18**: Modern UI framework
+- **TypeScript**: Type-safe JavaScript
+- **Vite**: Fast build tool and dev server
+- **Tailwind CSS**: Utility-first CSS framework
+- **TensorFlow.js**: AI/ML library for pose detection
+- **Framer Motion**: Animation library
+
+### Authentication
+- **Internet Identity**: Decentralized identity solution
+- **NFID**: Web3 identity provider
+- **Plug Wallet**: Browser extension wallet
+
+## 🚀 Getting Started
+
+### Prerequisites
+
+- Node.js (v16 or higher)
+- DFX (Internet Computer SDK)
+- Git
+
+### Installation
+
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/ManishRai005/FitnFrame.git
+   cd FitnFrame
+   ```
+
+2. **Install dependencies**
+   ```bash
+   npm install
+   cd src/FitnFrame_frontend
+   npm install
+   ```
+
+3. **Start local development**
+   ```bash
+   # Start local Internet Computer replica
+   dfx start --background
+   
+   # Deploy canisters locally
+   dfx deploy
+   
+   # Start frontend development server
+   cd src/FitnFrame_frontend
+   npm run start
+   ```
+
+### Deployment to Mainnet
+
+1. **Deploy to Internet Computer mainnet**
+   ```bash
+   dfx deploy --ic
+   ```
+
+2. **Access the application**
+   - Frontend: `https://[CANISTER_ID].ic0.app`
+   - Backend: `https://[CANISTER_ID].ic0.app`
+
+## 📁 Project Structure
+
+```
+FitnFrame/
+├── src/
+│   ├── FitnFrame_backend/          # Motoko smart contracts
+│   │   └── main.mo                 # Main canister logic
+│   ├── FitnFrame_frontend/         # React frontend
+│   │   ├── src/
+│   │   │   ├── components/         # React components
+│   │   │   ├── StateManagement/    # Context and state management
+│   │   │   └── main.jsx           # App entry point
+│   │   └── package.json
+│   └── declarations/               # Auto-generated TypeScript interfaces
+├── dfx.json                        # DFX configuration
+└── package.json                    # Root package.json
 ```
 
-## Running the project locally
+## 🔧 Configuration
 
-If you want to test your project locally, you can use the following commands:
+### Environment Variables
 
-```bash
-# Starts the replica, running in the background
-dfx start --background
+Create a `.env` file in the root directory:
 
-# Deploys your canisters to the replica and generates your candid interface
-dfx deploy
+```env
+DFX_NETWORK=ic
+CANISTER_ID_FITNFRAME_BACKEND=your_backend_canister_id
+CANISTER_ID_FITNFRAME_FRONTEND=your_frontend_canister_id
+CANISTER_ID_INTERNET_IDENTITY=rdmx6-jaaaa-aaaaa-aaadq-cai
 ```
 
-Once the job completes, your application will be available at `http://localhost:4943?canisterId={asset_canister_id}`.
+## 🎯 Key Features Implementation
 
-If you have made changes to your backend canister, you can generate a new candid interface with
+### Pose Detection
+- Uses TensorFlow.js and MediaPipe for real-time pose estimation
+- Tracks 33 body landmarks for accurate exercise monitoring
+- Supports multiple exercise types and form validation
+
+### Blockchain Integration
+- Motoko canisters handle user data and fitness tracking
+- Internet Identity for secure, decentralized authentication
+- On-chain storage for workout history and achievements
+
+### Authentication Flow
+1. User connects with Internet Identity, NFID, or Plug
+2. Identity delegation is created for canister access
+3. User data is associated with their principal ID
+4. Secure, privacy-preserving data ownership
+
+## 🚧 Development Challenges & Solutions
+
+### Cross-Platform Development
+- **Challenge**: WSL/Windows environment conflicts
+- **Solution**: Proper dependency management and build configuration
+
+### AI Integration
+- **Challenge**: Large ML models in browser environment
+- **Solution**: Optimized TensorFlow.js models and lazy loading
+
+### Blockchain Authentication
+- **Challenge**: Multiple identity providers integration
+- **Solution**: Unified authentication layer with IdentityKit
+
+## 📊 Performance Optimizations
+
+- Lazy loading of TensorFlow.js models
+- Optimized canister calls with batching
+- Efficient pose detection with frame rate limiting
+- Responsive UI with Tailwind CSS
+
+## 🔒 Security Features
+
+- Decentralized identity management
+- On-chain data ownership
+- Secure delegation patterns
+- Privacy-preserving data storage
+
+## 🧪 Testing
 
 ```bash
-npm run generate
+# Run frontend tests
+cd src/FitnFrame_frontend
+npm run test
+
+# Run backend tests
+dfx canister call FitnFrame_backend test
 ```
 
-at any time. This is recommended before starting the frontend development server, and will be run automatically any time you run `dfx deploy`.
+## 📈 Future Enhancements
 
-If you are making frontend changes, you can start a development server with
+- [ ] Mobile app development
+- [ ] Social features and challenges
+- [ ] Integration with fitness wearables
+- [ ] Advanced analytics dashboard
+- [ ] Cross-chain interoperability
 
-```bash
-npm start
-```
+## 🤝 Contributing
 
-Which will start a server at `http://localhost:8080`, proxying API requests to the replica at port 4943.
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
 
-### Note on frontend environment variables
+## 🙏 Acknowledgments
 
-If you are hosting frontend code somewhere without using DFX, you may need to make one of the following adjustments to ensure your project does not fetch the root key in production:
+- **Blockseblock** for the internship opportunity
+- Internet Computer Foundation for the blockchain platform
+- TensorFlow.js team for the pose detection models
+- React and Vite communities for excellent tooling
 
-- set`DFX_NETWORK` to `ic` if you are using Webpack
-- use your own preferred method to replace `process.env.DFX_NETWORK` in the autogenerated declarations
-  - Setting `canisters -> {asset_canister_id} -> declarations -> env_override to a string` in `dfx.json` will replace `process.env.DFX_NETWORK` with the string in the autogenerated declarations
-- Write your own `createActor` constructor
-# FitnFrame
-# FitnFrame
-# FitnFrame
+## 📞 Contact
+
+- **Developer**: Sachin Jadhav
+- **LinkedIn**: www.linkedin.com/in/sachin-jadhav-a3667b248
+
+---
+
+**Built with ❤️ during the Blockseblock Blockchain Internship Program**

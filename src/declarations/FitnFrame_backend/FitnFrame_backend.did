@@ -1,0 +1,115 @@
+type User = 
+ record {
+   achievements: vec text;
+   id: principal;
+   lastExerciseTime: int;
+   level: nat;
+   repCoins: nat;
+   streak: nat;
+   totalCaloriesBurned: nat;
+   username: text;
+ };
+type TransactionType = 
+ variant {
+   CHALLENGE_COMPLETE: record {
+                         challengeId: text;
+                         totalReps: nat;
+                       };
+   CHALLENGE_CREATE:
+    record {
+      challengeId: text;
+      duration: int;
+      name: text;
+      reward: nat;
+      targetReps: nat;
+    };
+   CHALLENGE_JOIN: record {challengeId: text;};
+   CURRENCY_EXCHANGE:
+    record {
+      currencyType: text;
+      exchangeRate: nat;
+      externalTxId: text;
+    };
+   EXERCISE_RECORD: record {
+                      caloriesBurned: nat;
+                      duration: int;
+                      reps: nat;
+                    };
+   MARKETPLACE_PURCHASE: record {
+                           itemId: text;
+                           price: nat;
+                         };
+   REP_COIN_REWARD: record {
+                      multiplier: nat;
+                      reason: text;
+                    };
+ };
+type Transaction = 
+ record {
+   amount: nat;
+   id: text;
+   priority: nat;
+   recipient: principal;
+   sender: principal;
+   signature: text;
+   timestamp: int;
+   transactionType: TransactionType;
+ };
+type Result_2 = 
+ variant {
+   err: text;
+   ok: Transaction;
+ };
+type Result_1 = 
+ variant {
+   err: text;
+   ok: Challenge;
+ };
+type Result = 
+ variant {
+   err: text;
+   ok: User;
+ };
+type Challenge = 
+ record {
+   creator: principal;
+   currentReps: nat;
+   description: text;
+   endTime: int;
+   id: text;
+   name: text;
+   participants: vec principal;
+   rewards: nat;
+   startTime: int;
+   status: text;
+   targetReps: nat;
+ };
+type Block = 
+ record {
+   hash: text;
+   index: nat;
+   nonce: nat;
+   previousHash: text;
+   timestamp: int;
+   transactions: vec Transaction;
+ };
+service : {
+  addTransaction: (principal, nat, TransactionType) -> (Result_2);
+  completeChallenge: (text, principal) -> (Result_1);
+  createChallenge: (text, text, text, nat, int, nat, principal) -> (Result_1);
+  exchangeRepCoinsForCurrency: (nat, text, nat, text) -> (Result_2);
+  getActiveChallenges: () -> (vec Challenge) query;
+  getChain: () -> (vec Block) query;
+  getChallenges: () -> (vec Challenge) query;
+  getExchangeRates: () -> (vec record {
+                                 text;
+                                 nat;
+                               }) query;
+  getLatestBlock: () -> (opt Block) query;
+  getLeaderboard: (nat) -> (vec User) query;
+  getPendingTransactions: () -> (vec Transaction) query;
+  getUser: () -> (Result) query;
+  getUserByPrincipal: (principal) -> (Result) query;
+  joinChallenge: (text, principal) -> (Result_1);
+  registerUser: (text) -> (Result);
+}

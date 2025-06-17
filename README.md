@@ -47,7 +47,7 @@ FitnFrame is a full-stack decentralized application (dApp) that allows users to 
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/ManishRai005/FitnFrame.git
+   git clone https://github.com/kffod/ICP-deployment.git
    cd FitnFrame
    ```
 

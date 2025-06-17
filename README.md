@@ -102,17 +102,6 @@ FitnFrame/
 
 ## 🔧 Configuration
 
-### Environment Variables
-
-Create a `.env` file in the root directory:
-
-```env
-DFX_NETWORK=ic
-CANISTER_ID_FITNFRAME_BACKEND=your_backend_canister_id
-CANISTER_ID_FITNFRAME_FRONTEND=your_frontend_canister_id
-CANISTER_ID_INTERNET_IDENTITY=rdmx6-jaaaa-aaaaa-aaadq-cai
-```
-
 ## 🎯 Key Features Implementation
 
 ### Pose Detection
